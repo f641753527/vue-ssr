@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-calendar v-model="value" />
+    <el-button>{{ $t('Home.submit') }}</el-button>
   </div>
 </template>
 
