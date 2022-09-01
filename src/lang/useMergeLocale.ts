@@ -2,7 +2,7 @@ import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Language } from 'element-plus/lib/locale';
 
-interface ILangElement {
+export interface ILangElement {
   languageElement: Language;
   lanuageKey: string;
   lanuageLabel: string;

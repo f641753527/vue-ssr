@@ -1,23 +1,14 @@
 <template>
   <el-config-provider :locale="theme?.languageElement">
-    <el-select
-      :model-value="theme && theme.lanuageLabel"
-      @change="handleThemeChange"
-    >
-      <el-option
-        v-for="l of elementLanguages"
-        :key="l.lanuageKey"
-        :value="l.lanuageKey"
-        >{{ l.lanuageLabel }}</el-option
-      >
-    </el-select>
-    <router-view />
+    <Header :langs="elementLanguages" @changeTheme="handleThemeChange" />
+    <router-view></router-view>
   </el-config-provider>
 </template>
 
 <script setup lang="ts">
 import http from '@/utils/http';
 import useMergeLocale from './lang/useMergeLocale';
+import Header from '@/components/Header/index.vue';
 
 const { elementLanguages, theme, handleThemeChange } = useMergeLocale();
 

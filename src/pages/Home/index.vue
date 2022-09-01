@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- <el-calendar v-model="value" />
-    <el-button>{{ $t('Home.submit') }}</el-button> -->
+    <el-calendar v-model="value" />
+    <el-button>{{ $t('Home.submit') }}</el-button>
     <!--  <el-button @click="handleAdd">添加数据</el-button>
     <el-button @click="handlePut">修改数据</el-button>
     <el-button @click="handleDelete">删除数据</el-button>
@@ -11,9 +11,9 @@
 </template>
 
 <script lang="ts" setup>
-// import { ref } from 'vue';
-// const value = ref(new Date());
-import { fetchUserList } from '@/api';
+import { ref } from 'vue';
+const value = ref(new Date());
+// import { fetchUserList } from '@/api';
 // import db, { IUser } from '@/db';
 
 // const handleAdd = () => {
@@ -32,9 +32,9 @@ import { fetchUserList } from '@/api';
 //   db.getAll<IUser>('user');
 // };
 
-fetchUserList().then((res) => {
-  console.log('fetchUserList', res);
-});
+// fetchUserList().then((res) => {
+//   console.log('fetchUserList', res);
+// });
 </script>
 
 <style lang="less" scoped></style>
