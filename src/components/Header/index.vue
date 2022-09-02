@@ -24,7 +24,7 @@
         v-for="lang of props.langs"
         :key="lang.lanuageKey"
         :index="lang.lanuageKey"
-        @click="(item) => emits('changeTheme', item.index)"
+        @click="(item) => handleChangeTheme(item.index)"
         >{{ lang.lanuageLabel }}</el-menu-item
       >
     </el-sub-menu>
@@ -38,6 +38,7 @@
 </template>
 
 <script lang="ts" setup>
+import { saveLanguage } from '@/api';
 import { ILangElement } from '../../lang/useMergeLocale';
 
 const props = defineProps<{
@@ -47,6 +48,11 @@ const props = defineProps<{
 const emits = defineEmits<{
   (e: 'changeTheme', lang: string): void;
 }>();
+
+const handleChangeTheme = (lang: string) => {
+  emits('changeTheme', lang);
+  saveLanguage(lang);
+};
 </script>
 
 <style lang="scss" scoped>

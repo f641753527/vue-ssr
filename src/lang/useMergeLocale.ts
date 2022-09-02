@@ -25,11 +25,6 @@ export default () => {
     lang && (theme.value = lang);
   };
 
-  /** reset */
-  {
-    setTimeout(() => handleThemeChange('zh'), 200);
-  }
-
   const files = import.meta.glob('./languages/*.ts');
 
   Object.entries(files).forEach((file) => {
@@ -45,5 +40,9 @@ export default () => {
     });
   });
 
-  return { elementLanguages, handleThemeChange, theme };
+  const initTheme = () => {
+    handleThemeChange('zh');
+  };
+
+  return { elementLanguages, handleThemeChange, theme, initTheme };
 };

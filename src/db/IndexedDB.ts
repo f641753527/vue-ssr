@@ -2,7 +2,7 @@ import { tables } from './constants';
 
 export default class IndexedDB {
   private readonly _dbName = '__VUE_SSR_DB_NAME__';
-  private readonly _dbVersion = 4;
+  private readonly _dbVersion = 5;
   private _db: any;
 
   constructor() {

@@ -1,5 +1,5 @@
-export interface IUser {
+export interface ILanguage {
   id: number | null;
-  name: string;
-  age: number;
+  userId: number;
+  language: string;
 }

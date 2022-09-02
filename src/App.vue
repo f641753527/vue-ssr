@@ -6,18 +6,25 @@
 </template>
 
 <script setup lang="ts">
-import http from '@/utils/http';
+import { getLanguage } from '@/api';
 import useMergeLocale from './lang/useMergeLocale';
 import Header from '@/components/Header/index.vue';
 
-const { elementLanguages, theme, handleThemeChange } = useMergeLocale();
+const { elementLanguages, theme, handleThemeChange, initTheme } =
+  useMergeLocale();
 
-const getList = async () => {
-  const data = await http.get<number[]>('/api/videos/near');
-  console.log(data);
+const initLanguage = async () => {
+  getLanguage()
+    .then((res) => {
+      handleThemeChange(res.data);
+    })
+    .catch((e) => {
+      console.error(e);
+      setTimeout(initTheme, 150);
+    });
 };
 
-getList();
+initLanguage();
 </script>
 
 <style scoped lang="scss">
