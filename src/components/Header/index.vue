@@ -16,10 +16,10 @@
       ></path>
     </svg>
     <div class="flex-grow" />
-    <el-menu-item index="/orders">房源订单中心</el-menu-item>
-    <el-menu-item index="/history">历史足迹</el-menu-item>
+    <el-menu-item index="/orders">{{ t('Header.orders') }}</el-menu-item>
+    <el-menu-item index="/history">{{ t('Header.history') }}</el-menu-item>
     <el-sub-menu index="/language">
-      <template #title>语言切换</template>
+      <template #title>{{ t('Header.language') }}</template>
       <el-menu-item
         v-for="lang of props.langs"
         :key="lang.lanuageKey"
@@ -40,6 +40,7 @@
 <script lang="ts" setup>
 import { saveLanguage } from '@/api';
 import { ILangElement } from '../../lang/useMergeLocale';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
   langs: ILangElement[];
@@ -53,6 +54,8 @@ const handleChangeTheme = (lang: string) => {
   emits('changeTheme', lang);
   saveLanguage(lang);
 };
+
+const { t } = useI18n();
 </script>
 
 <style lang="scss" scoped>

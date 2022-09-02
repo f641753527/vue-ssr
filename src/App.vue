@@ -2,6 +2,7 @@
   <el-config-provider :locale="theme?.languageElement">
     <Header :langs="elementLanguages" @changeTheme="handleThemeChange" />
     <router-view></router-view>
+    <Footer />
   </el-config-provider>
 </template>
 
@@ -9,6 +10,7 @@
 import { getLanguage } from '@/api';
 import useMergeLocale from './lang/useMergeLocale';
 import Header from '@/components/Header/index.vue';
+import Footer from '@/components/Footer/index.vue';
 
 const { elementLanguages, theme, handleThemeChange, initTheme } =
   useMergeLocale();
