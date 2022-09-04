@@ -3,3 +3,9 @@ export interface ILanguage {
   userId: number;
   language: string;
 }
+
+export interface IUser {
+  id?: number;
+  phone: string;
+  password: string;
+}

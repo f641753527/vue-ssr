@@ -1,4 +1,4 @@
-import db, { ILanguage } from '../db';
+import db, { ILanguage, IUser } from '../db';
 
 // #region 语言包
 /** 保存语言包 */
@@ -23,4 +23,30 @@ export const getLanguage = async () => {
   if (!item) return Promise.reject({ code: -1, message: '用户未保存语言包' });
   return Promise.resolve({ code: 0, data: item.language, message: '' });
 };
+// #endregion
+
+// #region 登录注册模块
+
+/** 注册 */
+export const signup = async (user: IUser) => {
+  const [error, data] = await db.add<IUser>('user', user);
+
+  if (error) return Promise.reject(error);
+
+  return Promise.resolve({ code: 0, data, message: '' });
+};
+
+/** 登录 */
+export const signin = async (user: IUser) => {
+  const [error, data] = await db.getAll<IUser>('user');
+
+  if (error) return Promise.reject(error);
+  const item = data?.find((v) => v.phone === user.phone);
+  if (!item) return Promise.reject({ code: -1, message: '用户不存在' });
+  if (item.password !== user.password)
+    return Promise.reject({ code: -1, message: '密码错误' });
+
+  return Promise.resolve({ code: 0, data: item, message: '' });
+};
+
 // #endregion

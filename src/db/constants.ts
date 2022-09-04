@@ -1,1 +1,4 @@
-export const tables = [{ name: 'language', key: 'id' }];
+export const tables = [
+  { name: 'language', key: 'id' },
+  { name: 'user', key: 'id' },
+];

@@ -28,7 +28,6 @@
           <el-button type="primary" @click="submitForm(ruleFormRef)"
             >Create</el-button
           >
-          <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -37,7 +36,13 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from '@/store';
 import type { FormRules, FormInstance } from 'element-plus';
+import { signin, signup } from '@/api';
+
+const router = useRouter();
+const store = useStore();
 
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive({ phone: '', password: '' });
@@ -53,16 +58,18 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
-      console.log('submit!');
+      if (activeTab.value === 0) {
+        signin({ ...ruleForm }).then((res) => {
+          store.dispatch('LOGIN', res.data.id);
+          router.push('/');
+        });
+      } else {
+        signup({ ...ruleForm });
+      }
     } else {
       console.log('error submit!', fields);
     }
   });
-};
-
-const resetForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return;
-  formEl.resetFields();
 };
 
 const activeTab = ref(0);

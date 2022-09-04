@@ -4,10 +4,12 @@ import App from './App.vue';
 import router from './router';
 import i18n from './lang';
 import './db';
+import store, { key } from './store';
 
 import 'normalize.css';
 
 const app = createApp(App);
+app.use(store, key);
 app.use(router);
 app.use(i18n);
 app.mount('#app');
