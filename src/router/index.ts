@@ -1,15 +1,18 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import {
+  createRouter,
+  createWebHistory,
+  RouteRecordRaw,
+  createMemoryHistory,
+} from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/auth',
-    component: import(
-      /* webpackChunkName: "Layout" */ '@/pages/Login/index.vue'
-    ),
+    component: () => import('@/pages/Login/index.vue'),
   },
   {
     path: '/',
-    component: import(/* webpackChunkName: "Layout" */ '@/Layout/index.vue'),
+    component: () => import('@/Layout/index.vue'),
     children: [
       {
         path: '',
@@ -17,16 +20,14 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: '/home',
-        component: import(
-          /* webpackChunkName: "Layout" */ '@/pages/Home/index.vue'
-        ),
+        component: () => import('@/pages/Home/index.vue'),
       },
     ],
   },
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
   routes,
 });
 

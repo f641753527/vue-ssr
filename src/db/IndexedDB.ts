@@ -6,7 +6,7 @@ export default class IndexedDB {
   private _db: any;
 
   constructor() {
-    this.open();
+    // this.open();
   }
 
   private async open(): Promise<[any, any]> {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-calendar v-model="value" />
-    <el-button>{{ $t('Home.submit') }}</el-button>
+    <!-- <el-button>{{ $t('Home.submit') }}</el-button> -->
     <!--  <el-button @click="handleAdd">添加数据</el-button>
     <el-button @click="handlePut">修改数据</el-button>
     <el-button @click="handleDelete">删除数据</el-button>

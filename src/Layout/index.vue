@@ -1,30 +1,37 @@
 <template>
-  <el-config-provider :locale="theme?.languageElement">
-    <Header :langs="elementLanguages" @changeTheme="handleThemeChange" />
+  <el-config-provider :locale="elemLocale">
+    <MyHeader @changeTheme="changeTheme" />
     <router-view></router-view>
     <Footer />
   </el-config-provider>
 </template>
 
 <script setup lang="ts">
-import { getLanguage } from '@/api';
-import useMergeLocale from '../lang/useMergeLocale';
-import Header from '@/components/Header/index.vue';
+import { ref, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
+import en from 'element-plus/lib/locale/lang/en';
+import zh from 'element-plus/lib/locale/lang/zh-cn';
+
+import MyHeader from '@/components/Header/index.vue';
 import Footer from '@/components/Footer/index.vue';
+import { getLanguage } from '@/api';
+const { locale } = useI18n();
 
-const { elementLanguages, theme, handleThemeChange, initTheme } =
-  useMergeLocale();
+const elemLocale = ref(zh);
 
-const initLanguage = async () => {
-  getLanguage()
-    .then((res) => {
-      handleThemeChange(res.data);
-    })
-    .catch((e) => {
-      console.error(e);
-      setTimeout(initTheme, 150);
-    });
+const changeTheme = (lang: string) => {
+  locale.value = lang;
+  if (lang === 'zh') {
+    elemLocale.value = zh;
+  } else {
+    elemLocale.value = en;
+  }
 };
 
-initLanguage();
+const initLanguage = () => {
+  getLanguage().then((res) => {
+    changeTheme(res.data);
+  });
+};
+onMounted(initLanguage);
 </script>

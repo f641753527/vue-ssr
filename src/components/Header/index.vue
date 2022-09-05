@@ -20,12 +20,11 @@
     <el-menu-item index="/history">{{ t('Header.history') }}</el-menu-item>
     <el-sub-menu index="/language">
       <template #title>{{ t('Header.language') }}</template>
-      <el-menu-item
-        v-for="lang of props.langs"
-        :key="lang.lanuageKey"
-        :index="lang.lanuageKey"
-        @click="(item) => handleChangeTheme(item.index)"
-        >{{ lang.lanuageLabel }}</el-menu-item
+      <el-menu-item index="zh" @click="handleChangeTheme('zh')"
+        >中文</el-menu-item
+      >
+      <el-menu-item index="en" @click="handleChangeTheme('en')"
+        >English</el-menu-item
       >
     </el-sub-menu>
     <svg v-if="store.state.token" width="32" height="32" style="display: block">
@@ -42,15 +41,10 @@
 import { useStore } from '@/store';
 import { useRouter } from 'vue-router';
 import { saveLanguage } from '@/api';
-import { ILangElement } from '../../lang/useMergeLocale';
 import { useI18n } from 'vue-i18n';
 
 const store = useStore();
 const router = useRouter();
-
-const props = defineProps<{
-  langs: ILangElement[];
-}>();
 
 const emits = defineEmits<{
   (e: 'changeTheme', lang: string): void;
