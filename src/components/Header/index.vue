@@ -15,7 +15,7 @@
         fill="currentcolor"
       ></path>
     </svg>
-    <div class="flex-grow" />
+    <div class="flex-grow"></div>
     <el-menu-item index="/orders">{{ t('Header.orders') }}</el-menu-item>
     <el-menu-item index="/history">{{ t('Header.history') }}</el-menu-item>
     <el-sub-menu index="/language">

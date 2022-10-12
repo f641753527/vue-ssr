@@ -1,40 +1,39 @@
 <template>
   <div>
-    <el-calendar v-model="value" />
-    <!-- <el-button>{{ $t('Home.submit') }}</el-button> -->
-    <!--  <el-button @click="handleAdd">添加数据</el-button>
-    <el-button @click="handlePut">修改数据</el-button>
-    <el-button @click="handleDelete">删除数据</el-button>
-    <el-button @click="handleGet">查询</el-button>
-    <el-button @click="handleGetALl">查询所有</el-button> -->
+    <Banner />
+    <div class="list">
+      <div class="item" v-for="i in 6" :key="i">
+        <img
+          class="image"
+          src="https://z1.muscache.cn/im/pictures/348571bd-1eb6-4414-b550-671c385588d3.jpg?aki_policy=large"
+          alt=""
+        />
+        <h3 class="title">主标题</h3>
+        <h4 class="title">副标题</h4>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-const value = ref(new Date());
-// import { fetchUserList } from '@/api';
-// import db, { IUser } from '@/db';
-
-// const handleAdd = () => {
-//   db.add<IUser>('user', { name: '张三', age: 18 } as IUser);
-// };
-// const handlePut = () => {
-//   db.put<IUser>('user', { id: 10, name: '张三', age: 18 });
-// };
-// const handleDelete = () => {
-//   db.delete('user', 9);
-// };
-// const handleGet = () => {
-//   db.get<IUser>('user', 900);
-// };
-// const handleGetALl = () => {
-//   db.getAll<IUser>('user');
-// };
-
-// fetchUserList().then((res) => {
-//   console.log('fetchUserList', res);
-// });
+import Banner from './Banner.vue';
 </script>
 
-<style lang="less" scoped></style>
+<style lang="scss" scoped>
+.list {
+  margin-top: 36px;
+  margin-right: -24px;
+  padding: 0 120px;
+  display: flex;
+  flex-wrap: wrap;
+  .item {
+    margin-right: 24px;
+    flex: 1 1 auto;
+    max-width: 400px;
+    .image {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+</style>

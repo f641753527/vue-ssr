@@ -1,8 +1,10 @@
 <template>
   <el-config-provider :locale="elemLocale">
-    <MyHeader @changeTheme="changeTheme" />
-    <router-view></router-view>
-    <Footer />
+    <div class="layout">
+      <MyHeader @changeTheme="changeTheme" />
+      <router-view :style="{ flex: 1 }"></router-view>
+      <Footer />
+    </div>
   </el-config-provider>
 </template>
 
@@ -35,3 +37,11 @@ const initLanguage = () => {
 };
 onMounted(initLanguage);
 </script>
+
+<style lang="scss" scoped>
+.layout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+</style>
