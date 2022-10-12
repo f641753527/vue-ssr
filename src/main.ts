@@ -1,16 +1,19 @@
 import { createSSRApp } from 'vue';
 
 import App from './App.vue';
-import router from './router';
+import createSSRRouter from './router';
 import i18n from './lang';
 import element, { ID_INJECTION_KEY } from 'element-plus';
 import 'element-plus/dist/index.css';
-import store, { key } from './store';
+import createSSRStore, { key } from './store';
 
 import 'normalize.css';
 
 export function createApp() {
   const app = createSSRApp(App);
+
+  const store = createSSRStore();
+  const router = createSSRRouter();
   app.use(store, key);
   app.use(router);
   app.use(i18n);
@@ -18,5 +21,5 @@ export function createApp() {
     prefix: 100,
     current: 0,
   });
-  return { app, router };
+  return { app, router, store };
 }

@@ -1,8 +1,16 @@
 import { InjectionKey } from 'vue';
 import { Store, createStore, useStore as baseUseStore } from 'vuex';
+import { getRoomList } from '@/api';
+
+export interface IRoom {
+  image: string;
+  title: string;
+  desc: string;
+}
 
 interface IState {
   token: string;
+  roomList: IRoom[];
 }
 
 // 定义 injection key
@@ -13,18 +21,29 @@ export function useStore() {
   return baseUseStore(key);
 }
 
-export default createStore<IState>({
-  state: {
-    token: '',
-  },
-  mutations: {
-    SET_TOKEN(state, payload) {
-      state.token = payload;
+export default function createSSRStore() {
+  return createStore<IState>({
+    state: {
+      token: '',
+      roomList: [],
     },
-  },
-  actions: {
-    LOGIN({ commit }, payload) {
-      commit('SET_TOKEN', payload);
+    mutations: {
+      SET_TOKEN(state, payload) {
+        state.token = payload;
+      },
+      SET_ROOM_LIST(state, payload) {
+        state.roomList = payload;
+      },
     },
-  },
-});
+    actions: {
+      LOGIN({ commit }, payload) {
+        commit('SET_TOKEN', payload);
+      },
+      GET_ROOM_LIST({ commit }) {
+        return getRoomList().then((res) => {
+          return commit('SET_ROOM_LIST', res);
+        });
+      },
+    },
+  });
+}

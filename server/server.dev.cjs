@@ -12,7 +12,9 @@ async function createMyServer() {
   // 如果你想使用 Vite 自己的 HTML 服务逻辑（将 Vite 作为
   // 一个开发中间件来使用），那么这里请用 'html'
   const vite = await createServer({
-    server: { middlewareMode: "ssr" },
+    server: {
+      middlewareMode: "ssr",
+    },
   });
   // 使用 vite 的 Connect 实例作为中间件
   app.use(vite.middlewares);
@@ -37,10 +39,10 @@ async function createMyServer() {
       // 4. 渲染应用的 HTML。这假设 entry-server.js 导出的 `render`
       //    函数调用了适当的 SSR 框架 API。
       //    例如 ReactDOMServer.renderToString()
-      const appHtml = await render(url);
+      const { appHtml, state } = await render(url);
 
       // 5. 注入渲染后的应用程序 HTML 到模板中。
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml);
+      const html = template.replace(`<!--ssr-outlet-->`, appHtml).replace(`'<!--ssr-intial-state-->'`, JSON.stringify(state))
 
       // 6. 返回渲染后的 HTML。
       res.status(200).set({ "Content-Type": "text/html" }).end(html);

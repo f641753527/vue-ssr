@@ -33,7 +33,8 @@ export default defineConfig({
     port: 8080,
     proxy: {
       "/api": {
-        target: "https://mock.mengxuegu.com/mock/61b9aed2ca09cb42105ae342",
+        target:
+          "https://mock.mengxuegu.com/mock/6346372dba6bdb4f54a85f7e/airbnb",
         changeOrigin: true,
       },
     },
