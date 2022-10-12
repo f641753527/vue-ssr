@@ -57,7 +57,7 @@ export const signin = async (user: IUser) => {
 // #endregion
 
 export const getRoomList = async () => {
-  await delay(3000);
+  // await delay(3000);
   return http.get<IRoom[]>(
     'https://mock.mengxuegu.com/mock/6346372dba6bdb4f54a85f7e/airbnb/api/room/list',
   );

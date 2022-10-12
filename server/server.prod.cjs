@@ -2,7 +2,7 @@
  * @Author: Phoenix Fan
  * @Date: 2022-09-05 10:11:59
  * @LastEditors: Phoenix Fan
- * @LastEditTime: 2022-10-12 21:50:52
+ * @LastEditTime: 2022-10-12 23:09:04
  * @Description:
  */
 const { readFileSync } = require("fs");
@@ -24,12 +24,16 @@ async function createMyServer() {
       
       const render = require("../dist/server/entry-server.cjs").render;
 
+      const manifest = require("../dist/client/ssr-manifest.json");
+
       // 4. 渲染应用的 HTML。这假设 entry-server.js 导出的 `render`
       //    函数调用了适当的 SSR 框架 API。
       //    例如 ReactDOMServer.renderToString()
-      const { appHtml, state } = await render(url);
+      const { appHtml, state, preloadLinks } = await render(url, manifest);
 
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml).replace(`'<!--ssr-intial-state-->'`, JSON.stringify(state));
+      const html = template.replace(`<!--ssr-outlet-->`, appHtml)
+        .replace(`'<!--ssr-intial-state-->'`, JSON.stringify(state))
+        .replace(`<!--ssr-preload-links-->`, preloadLinks)
 
       // 6. 返回渲染后的 HTML。
       res.status(200).set({ "Content-Type": "text/html" }).end(html);

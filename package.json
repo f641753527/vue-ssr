@@ -7,7 +7,7 @@
     "dev": "vite",
     "ssr:dev": "node server/server.dev.cjs",
     "ssr:prod": "node server/server.prod.cjs",
-    "build:client": "vite build --outDir dist/client",
+    "build:client": "vite build --outDir dist/client --ssrManifest",
     "build:server": "vite build -c vite.config.prod.ts --ssr src/entry-server.ts",
     "build:ssr": "npm run build:client && npm run build:server",
     "preview": "vite preview"
