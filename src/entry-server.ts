@@ -38,7 +38,7 @@ export async function render(url: string, manifest: any) {
   await Promise.all(
     matchedComponents.map((Component: any) => {
       if (Component.asyncData) {
-        return Component.asyncData({ route: router.currentRoute, store });
+        return Component.asyncData({ route: router.currentRoute.value, store });
       }
     }),
   );

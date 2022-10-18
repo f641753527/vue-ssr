@@ -1,42 +1,39 @@
 // 该文件运行在浏览器中
 import { createApp } from './main';
 
-const { app, store, router } = createApp();
-
-if (window.__INTIAL_STATE__) {
-  store.replaceState(window.__INTIAL_STATE__);
+async function runAsyncData(comps: any, route: any, store: any) {
+  return Promise.all(
+    comps
+      .filter((Comp: any) => Comp.asyncData)
+      .map((Component: any) => Component.asyncData({ route, store })),
+  );
 }
 
-router.isReady().then(() => {
-  router.beforeResolve((to, from, next) => {
-    const toMatchedComponents = router
+async function main() {
+  const { app, store, router } = createApp();
+
+  if (window.__INTIAL_STATE__) {
+    store.replaceState(window.__INTIAL_STATE__);
+  }
+  await router.isReady();
+
+  router.beforeResolve(async (to, from, next) => {
+    const comps = router
       .resolve(to)
       .matched.filter((c) => c.components)
       .flatMap((record: any) => Object.values(record.components));
 
-    const fromMatchedComponents = router
-      .resolve(from)
-      .matched.filter((c) => c.components)
-      .flatMap((record: any) => Object.values(record.components));
-
-    const matchedComponents = toMatchedComponents.filter((c, i) => {
-      return fromMatchedComponents[i] !== c;
-    });
-
-    if (!matchedComponents.length) return next();
-
-    console.log('同步服务端数据');
-
-    Promise.all(
-      matchedComponents.map((Component: any) => {
-        if (Component.asyncData) {
-          return Component.asyncData({ route: router.currentRoute, store });
-        }
-      }),
-    ).then(() => {
-      next();
-    });
+    await next();
+    runAsyncData(comps, to, store);
   });
-});
 
-app.mount('#app');
+  const comps = router.currentRoute.value.matched.flatMap((record: any) =>
+    Object.values(record.components),
+  );
+
+  runAsyncData(comps, router.currentRoute.value, store);
+
+  app.mount('#app');
+}
+
+main();

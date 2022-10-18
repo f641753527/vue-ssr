@@ -3,6 +3,7 @@ import { Store, createStore, useStore as baseUseStore } from 'vuex';
 import { getRoomList } from '@/api';
 
 export interface IRoom {
+  id: number;
   image: string;
   title: string;
   desc: string;
