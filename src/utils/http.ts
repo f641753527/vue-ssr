@@ -13,7 +13,7 @@ export interface ResponseData<T = any> {
 
 const defaultConfig: AxiosRequestConfig = {
   timeout: 5000,
-  baseURL: '',
+  baseURL: 'http://localhost:8000',
 };
 
 class Http {
