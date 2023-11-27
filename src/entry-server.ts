@@ -35,6 +35,8 @@ export async function render(url: string, manifest: any) {
     (record: any) => Object.values(record.components),
   );
 
+  /** 执行组件的asyncData，预取数据存储store */
+  /** TODO：asyncData返回的数据，需要合并到组件实例 */
   await Promise.all(
     matchedComponents.map((Component: any) => {
       if (Component.asyncData) {
@@ -46,10 +48,10 @@ export async function render(url: string, manifest: any) {
   const ctx: any = {};
 
   const appHtml = await renderToString(app, ctx);
+  console.log(ctx)
 
   if (import.meta.env.PROD) {
     const preloadLinks = renderLinks(ctx.modules, manifest);
-
     return { appHtml, state: store.state, preloadLinks };
   }
 

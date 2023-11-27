@@ -12,7 +12,7 @@ export default {
   Footer: {
     config: [
       {
-        title: '爱彼迎',
+        title: '鸡窝',
         menus: ['工作机会', '爱彼迎新闻', '政策', '无障碍设施'],
       },
       {

@@ -12,7 +12,10 @@ async function runAsyncData(comps: any, route: any, store: any) {
 async function main() {
   const { app, store, router } = createApp();
 
-  if (window.__INTIAL_STATE__) {
+  if (
+    window.__INTIAL_STATE__ &&
+    window.__INTIAL_STATE__ !== '<!--ssr-intial-state-->'
+  ) {
     store.replaceState(window.__INTIAL_STATE__);
   }
   await router.isReady();

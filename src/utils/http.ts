@@ -13,7 +13,8 @@ export interface ResponseData<T = any> {
 
 const defaultConfig: AxiosRequestConfig = {
   timeout: 5000,
-  baseURL: 'http://localhost:8000',
+  // baseURL: 'http://localhost:8001',
+  baseURL: 'https://mock.mengxuegu.com/mock/6346372dba6bdb4f54a85f7e',
 };
 
 class Http {

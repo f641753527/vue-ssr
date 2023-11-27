@@ -50,13 +50,13 @@ async function createMyServer() {
       // 如果捕获到了一个错误，让 Vite 来修复该堆栈，这样它就可以映射回
       // 你的实际源码中。
       vite.ssrFixStacktrace(e);
-      console.error(e);
+      console.error(e.message);
       res.status(500).end(e.message);
     }
   });
 
-  app.listen(8000, () => {
-    console.log("listening at 8000");
+  app.listen(8001, () => {
+    console.log("app is listening at http://localhost:8001");
   });
 }
 

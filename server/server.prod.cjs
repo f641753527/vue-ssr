@@ -21,14 +21,10 @@ async function createMyServer() {
     try {
       let template = readFileSync(resolve(__dirname, "../dist/client/index.html"), "utf-8");
 
-      
       const render = require("../dist/server/entry-server.cjs").render;
 
       const manifest = require("../dist/client/ssr-manifest.json");
 
-      // 4. 渲染应用的 HTML。这假设 entry-server.js 导出的 `render`
-      //    函数调用了适当的 SSR 框架 API。
-      //    例如 ReactDOMServer.renderToString()
       const { appHtml, state, preloadLinks } = await render(url, manifest);
 
       const html = template.replace(`<!--ssr-preload-links-->`, preloadLinks)
@@ -46,8 +42,8 @@ async function createMyServer() {
     }
   });
 
-  app.listen(9000, () => {
-    console.log("listening at 9000");
+  app.listen(9909, () => {
+    console.log("app is listening at http://localhost:9909");
   });
 }
 

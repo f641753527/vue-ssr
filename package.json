@@ -2,7 +2,7 @@
   "name": "vue-ssr",
   "private": true,
   "version": "0.0.0",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "ssr:dev": "node server/server.dev.cjs",
